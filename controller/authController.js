@@ -1,4 +1,5 @@
 const { User } = require("../models/userModel");
+const { Profile } = require("../models/profileModel");
 const jwt = require("jsonwebtoken");
 const { signupSchema, loginSchema } = require("../models/zodSchema");
 const bcrypt = require("bcryptjs");
@@ -32,6 +33,12 @@ const signup = async (req, res) => {
       name: parsedData.data.name,
       username: parsedData.data.username,
       password: hashedPassword,
+    });
+
+    await Profile.create({
+      user: user._id,
+      friendList: [],
+      pendingRequests: [],
     });
 
     const token = jwt.sign(
