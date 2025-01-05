@@ -86,7 +86,7 @@ const login = async (req, res) => {
     );
 
     if (!isValidPassword) {
-      return res.json({
+      return res.status(403).json({
         message: "Incorrect password!",
       });
     }
